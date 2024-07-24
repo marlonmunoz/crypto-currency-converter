@@ -1,0 +1,10 @@
+{
+    "burgers": [
+        {
+            "id": 1,
+            "name": "Flatburger",
+            "image": "Flatburger.jpg",
+            "price": 12.99
+        }
+    ]
+}
