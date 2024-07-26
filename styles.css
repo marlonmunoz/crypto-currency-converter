@@ -10,7 +10,7 @@ body {
     display: inline-block;
     border: 1px solid whitesmoke;
     border-radius: 7px;
-    padding: 10px 30px;
+    padding: 10px 10px 5px;
 }
 
 .right-div {
@@ -32,6 +32,15 @@ body, .right-div {
     padding: 60px;
 }
 
+h4,
+h2{
+    background-color: firebrick;
+    width: 200px;
+    text-align: center;
+    border: 1px solid white;
+    border-radius: 7px;
+}
+
 /* buttons */
 #green-btn, #red-btn {
     background-color: greenyellow;
@@ -39,4 +48,15 @@ body, .right-div {
 }
 #red-btn:hover {
     background-color: red;
+}
+
+#crypto-favs {
+    border: 1px solid firebrick;
+    margin: 20px;
+    border-radius: 5px;
+}
+
+.borders:hover {
+    color: black;
+    background-color: white;
 }
