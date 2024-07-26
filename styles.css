@@ -1,5 +1,42 @@
 body {
     background-color: black;
     color: white;
+    text-align: left;
+    border: 2px solid white;
+    
+}
+
+.borders {
+    display: inline-block;
+    border: 1px solid whitesmoke;
+    border-radius: 7px;
+    padding: 10px 30px;
+}
+
+.right-div {
+    float: right;
+    position: absolute;
+    top: 0;
+    right: 0;
     text-align: center;
+}
+
+/* .right-div {
+    position: absolute;
+    top: 0;
+    right: 0;
+    
+} */
+
+body, .right-div {
+    padding: 60px;
+}
+
+/* buttons */
+#green-btn, #red-btn {
+    background-color: greenyellow;
+    border-radius: 10px;
+}
+#red-btn:hover {
+    background-color: red;
 }
