@@ -30,3 +30,24 @@ fetch("https://api.coincap.io/v2/assets")
     // })
     // console.log(topFiveCurrencies)
 })
+
+const currencySelector = document.getElementById("currency-filter")
+let exchangeRates = []
+const rates = fetch("http://localhost:3000/rates")
+.then(response => response.json())
+.then(data => {
+    let localCurrency = Object.keys(data)
+    console.log(localCurrency)
+    localCurrency.forEach(currency => {
+        const rateOptions = document.createElement('option')
+        console.log(currency)
+        rateOptions.value = currency
+        rateOptions.textContent = currency
+        console.log(rateOptions)
+        currencySelector.appendChild(rateOptions)
+    })
+})
+
+console.log(rates)
+
+console.log(exchangeRates)
