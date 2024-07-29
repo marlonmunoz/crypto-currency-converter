@@ -1,10 +1,8 @@
-# Burger Project
+# Crypto Project
 
 # Introduction
 
-welcome to my burger project 
+welcome to my crypto project 
 
 # Setup
 
-Here are some setup instructions necessary to tun this application.
-alamo
