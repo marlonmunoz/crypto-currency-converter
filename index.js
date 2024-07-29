@@ -32,13 +32,30 @@ fetch('https://api.coincap.io/v2/assets')
         const selectCrypto = document.querySelector('select')
         const optionCrypto = document.createElement('option')
         optionCrypto.textContent = `${cryptoCoin.name}`
-        const selectCrypto2 = document.querySelector('#coins')
-        const optionCrypto2 = document.createElement('option')
-        optionCrypto2.textContent = `$ ${cryptoCoin.id}`
+        // const selectCrypto2 = document.querySelector('#currency')
+        // const optionCrypto2 = document.createElement('option')
+        // optionCrypto2.textContent = `$ ${cryptoCoin.id}`
 
         selectCrypto.appendChild(optionCrypto)
-        selectCrypto2.appendChild(optionCrypto2)
+        // selectCrypto2.appendChild(optionCrypto2)
 
+
+    })
+})
+
+
+fetch("http://localhost:3002/rates")
+.then(response => response.json())
+.then(data => {
+    //console.log(data)
+    worldCurrencyList = Object.keys(data)
+    console.log(worldCurrencyList)
+    worldCurrencyList.forEach(worldCurrency => {
+        const currencyOption = document.createElement("option")
+        const currencyOptionList = document.getElementById("currency")
+        currencyOption.value = worldCurrency;
+        currencyOption.textContent = worldCurrency;
+        currencyOptionList.appendChild(currencyOption)
 
     })
 })
