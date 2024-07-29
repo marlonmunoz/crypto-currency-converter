@@ -13,17 +13,17 @@ myHeader.appendChild(h3TopFive)
 fetch('https://api.coincap.io/v2/assets')
 .then(respond => respond.json())
 .then(cryptoData => {
-    const topFiveFiltered = cryptoData.data.filter(cryptoCoin => cryptoCoin.rank <= 5)
+    const topFiveFiltered = cryptoData.data.filter(cryptoCoin => cryptoCoin.rank <=5)
     const divElement = document.querySelector('div')
     divElement.id = 'top-five' 
 
-    console.log(cryptoData.data);
+    // console.log(cryptoData.data);
 
     topFiveFiltered.forEach(cryptoCoin => {
         const cryptoContainer = document.querySelector('ul')
         cryptoContainer.id = 'myList'
         const cryptoList = document.createElement('li');
-        cryptoList.textContent = `${cryptoCoin.name} - (${cryptoCoin.symbol})`
+        cryptoList.textContent = `${cryptoCoin.name} - (${cryptoCoin.price})`
         cryptoContainer.appendChild(cryptoList)
 
         
@@ -31,20 +31,19 @@ fetch('https://api.coincap.io/v2/assets')
 
         const selectCrypto = document.querySelector('select')
         const optionCrypto = document.createElement('option')
-        optionCrypto.value = 'only-five'
         optionCrypto.textContent = `${cryptoCoin.name}`
-
         const selectCrypto2 = document.querySelector('#coins')
         const optionCrypto2 = document.createElement('option')
-        optionCrypto2.textContent = `$ ${cryptoCoin.priceUsd}`
+        optionCrypto2.textContent = `$ ${cryptoCoin.id}`
 
         selectCrypto.appendChild(optionCrypto)
         selectCrypto2.appendChild(optionCrypto2)
 
-        // console.log(cryptoList.textContent);
 
     })
 })
+
+// YOUR FAVORITE CRYPTO
 
 const h3List = document.querySelector('#favorites')
 
@@ -63,7 +62,7 @@ h5Date.textContent = 'Date'
 const updateBtn = document.createElement('button')
 updateBtn.textContent = 'Update'
 const deleteBtn = document.createElement('button')
-deleteBtn.textContent = 'Delete'
+deleteBtn.textContent = 'Refresh'
 
 
 h3List.append(h3CoinName)
