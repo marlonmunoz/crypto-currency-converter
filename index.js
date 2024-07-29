@@ -4,6 +4,7 @@ const myHeader = document.getElementById('myHeader')
 
 const h3TopFive = document.createElement('h3')
 h3TopFive.textContent = "Your favorite Crypto"
+h3TopFive.id = 'fav-title'
 
 const divElement = document.querySelector('div')
 divElement.id = 'top-five'
@@ -16,11 +17,16 @@ fetch('https://api.coincap.io/v2/assets')
     const divElement = document.querySelector('div')
     divElement.id = 'top-five' 
 
+    console.log(cryptoData.data);
+
     topFiveFiltered.forEach(cryptoCoin => {
         const cryptoContainer = document.querySelector('ul')
+        cryptoContainer.id = 'myList'
         const cryptoList = document.createElement('li');
         cryptoList.textContent = `${cryptoCoin.name} - (${cryptoCoin.symbol})`
         cryptoContainer.appendChild(cryptoList)
+
+        
 
 
         const selectCrypto = document.querySelector('select')
@@ -34,6 +40,9 @@ fetch('https://api.coincap.io/v2/assets')
 
         selectCrypto.appendChild(optionCrypto)
         selectCrypto2.appendChild(optionCrypto2)
+
+        // console.log(cryptoList.textContent);
+
     })
 })
 

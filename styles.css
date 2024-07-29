@@ -2,38 +2,46 @@ body {
     background-color: black;
     color: white;
     text-align: left;
-    border: 2px solid white;
+    border: 1px solid firebrick;
     
 }
 
-.borders {
-    display: inline-block;
-    border: 1px solid whitesmoke;
-    border-radius: 7px;
-    padding: 10px 10px 5px;
+#fav-title {
+    position: relative;
+    bottom: 100px;
+    left: 250px;
 }
 
-.right-div {
+li {
+    list-style-type: none;
+    display: inline-block;
+    position: relative;
+    border: 1px solid ;
+    border-radius: 7px;
+    padding: 10px;
+    margin: 3px;
+    right: 40px;
+    bottom: 100px;
+}
+
+
+#favorites {
     float: right;
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 130px;
+    right: 150px;
     text-align: center;
+    background-color: black;
 }
 
-/* .right-div {
-    position: absolute;
-    top: 0;
-    right: 0;
-    
-} */
 
 body, .right-div {
-    padding: 60px;
+    padding: 100px;
 }
 
 h4,
-h2{
+h2,
+h3{
     background-color: firebrick;
     width: 200px;
     text-align: center;
@@ -41,22 +49,27 @@ h2{
     border-radius: 7px;
 }
 
+#h4-crypto {
+    font-size: 20px;
+}
+
 /* buttons */
-#green-btn, #red-btn {
+
+button {
+    border: 1px solid firebrick;
+    border-radius: 3px;
+    margin: 10px;
+}
+
+/* #green-btn, #red-btn {
     background-color: greenyellow;
     border-radius: 10px;
 }
 #red-btn:hover {
     background-color: red;
-}
+} */
 
-#crypto-favs {
-    border: 1px solid firebrick;
-    margin: 20px;
-    border-radius: 5px;
-}
-
-.borders:hover {
+/* .borders:hover {
     color: black;
     background-color: white;
-}
+} */
