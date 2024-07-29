@@ -38,6 +38,7 @@ fetch('https://api.coincap.io/v2/assets')
     allCrypto.forEach(cryptos => {
         const selectCrypto = document.getElementById('crypto')
         const optionCryptoCoin = document.createElement('option')
+        optionCryptoCoin.value = cryptos.priceUsd
         optionCryptoCoin.textContent = cryptos.name 
         selectCrypto.append(optionCryptoCoin);
       
