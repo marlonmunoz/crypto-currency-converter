@@ -1,5 +1,6 @@
 
 // DOM: Selected and Created Elements
+
 const myHeader = document.getElementById('myHeader')
 
 const h3TopFive = document.createElement('h3')
@@ -10,6 +11,8 @@ const divElement = document.querySelector('div')
 divElement.id = 'top-five'
 myHeader.appendChild(h3TopFive)
 
+// Your favorite Crypto =====================================================
+
 fetch('https://api.coincap.io/v2/assets')
 .then(respond => respond.json())
 .then(cryptoData => {
@@ -17,39 +20,36 @@ fetch('https://api.coincap.io/v2/assets')
     const divElement = document.querySelector('div')
     divElement.id = 'top-five' 
 
-    // console.log(cryptoData.data);
-
     topFiveFiltered.forEach(cryptoCoin => {
         const cryptoContainer = document.querySelector('ul')
         cryptoContainer.id = 'myList'
         const cryptoList = document.createElement('li');
         cryptoList.textContent = `${cryptoCoin.name} - (${cryptoCoin.price})`
         cryptoContainer.appendChild(cryptoList)
-
-        
-
-
-        const selectCrypto = document.querySelector('select')
-        const optionCrypto = document.createElement('option')
-        optionCrypto.textContent = `${cryptoCoin.name}`
-        // const selectCrypto2 = document.querySelector('#currency')
-        // const optionCrypto2 = document.createElement('option')
-        // optionCrypto2.textContent = `$ ${cryptoCoin.id}`
-
-        selectCrypto.appendChild(optionCrypto)
-        // selectCrypto2.appendChild(optionCrypto2)
-
-
     })
 })
 
+// CRYPTO Tab =====================================================
+
+fetch('https://api.coincap.io/v2/assets')
+.then(res => res.json())
+.then(cryptoData => {
+    const allCrypto = cryptoData.data.filter(cryptoCoin => cryptoCoin)
+    allCrypto.forEach(cryptos => {
+        const selectCrypto = document.getElementById('crypto')
+        const optionCryptoCoin = document.createElement('option')
+        optionCryptoCoin.textContent = cryptos.name 
+        selectCrypto.append(optionCryptoCoin);
+      
+    })
+})
+
+// CURRENCY tab =====================================================
 
 fetch("http://localhost:3002/rates")
 .then(response => response.json())
 .then(data => {
-    //console.log(data)
     worldCurrencyList = Object.keys(data)
-    console.log(worldCurrencyList)
     worldCurrencyList.forEach(worldCurrency => {
         const currencyOption = document.createElement("option")
         const currencyOptionList = document.getElementById("currency")
@@ -60,7 +60,7 @@ fetch("http://localhost:3002/rates")
     })
 })
 
-// YOUR FAVORITE CRYPTO
+// FAVORITE LIST =====================================================
 
 const h3List = document.querySelector('#favorites')
 
@@ -89,3 +89,4 @@ h3List.append(h5Date)
 h3List.append(updateBtn)
 h3List.append(deleteBtn)
 
+// =====================================================================
