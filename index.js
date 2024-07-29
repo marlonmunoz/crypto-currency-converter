@@ -27,6 +27,7 @@ cryptoSection.appendChild(cryptoUSDCost)
 calculatedSection.appendChild(calculatedValue)
 
 
+
 // Your favorite Crypto =====================================================
 
 fetch('https://api.coincap.io/v2/assets')
@@ -40,9 +41,29 @@ fetch('https://api.coincap.io/v2/assets')
         const cryptoContainer = document.querySelector('ul')
         cryptoContainer.id = 'myList'
         const cryptoList = document.createElement('li');
+        cryptoList.className = 'li-hover'
         cryptoList.textContent = `${cryptoCoin.name} - (${cryptoCoin.symbol})`
         cryptoContainer.appendChild(cryptoList)
+
+        
+        
+
     })
+    const liList = document.getElementsByClassName('li-hover')
+    const array = Array.from(liList)
+    array.forEach(ele => {
+        console.log(ele);
+    
+    ele.addEventListener('mouseover', (event) => {
+        ele.style.backgroundColor = 'firebrick'
+
+    });
+    ele.addEventListener('mouseleave', () => {
+        ele.style.backgroundColor = ''
+    })
+    })
+    
+
 })
 
 // CRYPTO Tab =====================================================
@@ -92,6 +113,16 @@ calculateButton.addEventListener('click', event =>{
     calculatedValue.textContent = `Calculated value in selected currency is ${calculatedCryptoValue}`
 
 })
+
+
+
+// const liList = document.getElementsByClassName('li-hover')
+// console.log(liList);
+// const array = [...liList]
+// console.log(array);
+// array.forEach(ele => {
+// console.log(ele)
+// })
 
 
 
