@@ -1,70 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Project_01</title>
-        <link rel="stylesheet" href="styles.css">
-        <script defer src="index.js"></script>
-
+        <title>Document</title>
+        <script defer type="text/javascript" src="index.js"></script>
     </head>
-
     <body>
-        <h2>Your Favorite Crypto</h2>
+        <header id="myHeader">
+            <!-- <h3> Your Favorite Crypto-->
+        </header>
+
+        <div>
+            <ul>
+            <!-- Top 5 Crypto here  -->
+            </ul>
+        </div>
+
+        <h4>Crypto</h4>
+
+        <!-- Crypto: dropdown menu 1-->
+        <select id="crypto"></select>
         
-        <div id="top-five">
-        </div>
+        <h4>Currency</h4>
+        <!-- <Coins dropdowm menu 2 -->
+        <select id="coins"></select>
+        
+        <h3 id="favorites"> Favorite List </h3> 
+        <!-- <h2>  Coin Name-->
+            <!-- <h5> Currency -->
+            <!-- <h5> Price -->
+            <!-- <h5> Date -->
 
-        <div id="currency-conversion">
-            <form action="" >
-                <h4>CRYPTO Coins</h4>
-                <select id="crypto-filter" >
-                    <option value="BTC" class="hovering">Bitcoin</option>
-                    <option value="ETH" class="hovering">Etherum</option>
-                    <option value="USDT" class="hovering">Theter</option>
-                    <option value="USDT" class="hovering">Solana</option>
-                    <option value="USDT" class="hovering">XRP</option>
-                </select>
-
-                <select name="" id="currency-filter">
-                    <option value="USD">US Dollar</option>
-                    <option value="EUR">Euro</option>
-                    <option value="GBP">Pound</option>
-                    <option value="JPY">Yen</option>
-                </select>
-                <button id="'calculate">Calculate</button>
-                <p id="price-title">COST:</p>
-            </form>
-        </div>
-
-        <div id="crypto-favs" class="right-div">
-            <h4>Favorites List</h4>
-            <!-- <div>Coin, Currency, Price, Dates -->
-                <h2>Coin Name</h2>
-                <h5>Currency</h5>
-                <h5>Price</h5>
-                <h5>Date</h5>
-                <button id="green-btn">Update</button>
-                <button id="red-btn">Delete</button>
-            </div>
-            <!-- <div>option1
-                <button></button>
-            </div>
-            <div>option1
-                <button></button>
-            </div>
-            <div>option1
-                <button></button>
-            </div>
-            <div>option1
-                <button></button>
-            </div> -->
-        </div>
-        <!-- we will need a delete/clear btn -->
-        <footer>
-            <!-- <h6>Project</h6> -->
-        </footer>
+        <!-- <button> Update -->
+        <!-- <button> Delete/Clear-->
     </body>
-
 </html>

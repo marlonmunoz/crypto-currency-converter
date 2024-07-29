@@ -1,27 +1,66 @@
 
-// some testing line
-const span = document.createElement('span')
-const topFiveList = document.querySelector('#top-five')
+// DOM: Selected and Created Elements
+const myHeader = document.getElementById('myHeader')
+
+const h3TopFive = document.createElement('h3')
+h3TopFive.textContent = "Your favorite Crypto"
+
+const divElement = document.querySelector('div')
+divElement.id = 'top-five'
+myHeader.appendChild(h3TopFive)
 
 fetch('https://api.coincap.io/v2/assets')
-.then(res => res.json())
-.then(crypto => {
-    const topFiveCrypto = crypto.data.filter(cryptocurrency => {
-        return (Number(cryptocurrency.rank) <= 5) 
+.then(respond => respond.json())
+.then(cryptoData => {
+    const topFiveFiltered = cryptoData.data.filter(cryptoCoin => cryptoCoin.rank <= 5)
+    const divElement = document.querySelector('div')
+    divElement.id = 'top-five' 
+
+    topFiveFiltered.forEach(cryptoCoin => {
+        const cryptoContainer = document.querySelector('ul')
+        const cryptoList = document.createElement('li');
+        cryptoList.textContent = `${cryptoCoin.name} - (${cryptoCoin.symbol})`
+        cryptoContainer.appendChild(cryptoList)
+
+
+        const selectCrypto = document.querySelector('select')
+        const optionCrypto = document.createElement('option')
+        optionCrypto.value = 'only-five'
+        optionCrypto.textContent = `${cryptoCoin.name}`
+
+        const selectCrypto2 = document.querySelector('#coins')
+        const optionCrypto2 = document.createElement('option')
+        optionCrypto2.textContent = `$ ${cryptoCoin.priceUsd}`
+
+        selectCrypto.appendChild(optionCrypto)
+        selectCrypto2.appendChild(optionCrypto2)
     })
-    // const spanElement = document.createElement('span')
-    topFiveCrypto.forEach(crypto => {
-        const spanElement = document.createElement('span')
-
-        console.log(crypto.name);
-        const newDiv = document.createElement('div')
-        newDiv.className = "borders"
-        spanElement.appendChild(newDiv)
-        
-
-        const newParagraph = document.createElement('p')
-        newParagraph.textContent = crypto.name
-        spanElement.appendChild(newParagraph)
-        topFiveList.appendChild(spanElement)
-    }) 
 })
+
+const h3List = document.querySelector('#favorites')
+
+const h3CoinName = document.createElement('h3')
+h3CoinName.textContent = 'Coin Name'
+
+const h5Currency = document.createElement('h5')
+h5Currency.textContent = 'Currency'
+
+const h5Price = document.createElement('h5')
+h5Price.textContent = 'Price'
+
+const h5Date = document.createElement('h5')
+h5Date.textContent = 'Date'
+
+const updateBtn = document.createElement('button')
+updateBtn.textContent = 'Update'
+const deleteBtn = document.createElement('button')
+deleteBtn.textContent = 'Delete'
+
+
+h3List.append(h3CoinName)
+h3List.append(h5Currency)
+h3List.append(h5Price)
+h3List.append(h5Date)
+h3List.append(updateBtn)
+h3List.append(deleteBtn)
+
