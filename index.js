@@ -24,7 +24,7 @@ fetch('https://api.coincap.io/v2/assets')
         const cryptoContainer = document.querySelector('ul')
         cryptoContainer.id = 'myList'
         const cryptoList = document.createElement('li');
-        cryptoList.textContent = `${cryptoCoin.name} - (${cryptoCoin.price})`
+        cryptoList.textContent = `${cryptoCoin.name} - (${cryptoCoin.symbol})`
         cryptoContainer.appendChild(cryptoList)
     })
 })
