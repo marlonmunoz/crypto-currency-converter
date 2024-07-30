@@ -52,7 +52,7 @@ fetch('https://api.coincap.io/v2/assets')
     const liList = document.getElementsByClassName('li-hover')
     const array = Array.from(liList)
     array.forEach(ele => {
-        console.log(ele);
+        // console.log(ele);
     
     ele.addEventListener('mouseover', (event) => {
         ele.style.backgroundColor = 'firebrick'
@@ -100,10 +100,15 @@ fetch("http://localhost:3002/rates")
 
 currencySelctionMenu.addEventListener('change', event => {
     currencyValue.textContent = `Current exchange rate to USD: ${currencySelctionMenu.value}`
+    inputForm.value = currencySelctionMenu.value
+    
 })
 
 cryptoSelectionMenu.addEventListener('change', event => {
     cryptoUSDCost.textContent = `Crypto value in USD is: ${cryptoSelectionMenu.value}`
+    inputForm.value = cryptoSelectionMenu.value
+// **********
+    
 })
 
 calculateButton.addEventListener('click', event =>{
@@ -159,3 +164,39 @@ h3List.append(updateBtn)
 h3List.append(deleteBtn)
 
 // =====================================================================
+const favoriteListForm = document.createElement('form')
+favoriteListForm.className = "cryptoForm"
+const labelForm = document.createElement('label')
+labelForm.textContent = 'Coin-Name: '
+const inputForm = document.createElement('input')
+inputForm.id = 'coinName'
+inputForm.value = cryptoSelectionMenu.value
+inputForm.type = 'text'
+newInput = document.createElement('input')
+newInput.id = "currency"
+newLabel = document.createElement('label')
+newLabel.textContent = 'Currency: '
+
+const submitInput = document.createElement('input')
+submitInput.type = 'submit'
+submitInput.value = 'Submit'
+
+
+
+const btnForm = document.createElement('button')
+calculatedSection.appendChild(favoriteListForm)
+favoriteListForm.appendChild(labelForm)
+labelForm.appendChild(inputForm)
+favoriteListForm.appendChild(newLabel)
+newLabel.appendChild(newInput)
+favoriteListForm.appendChild(submitInput)
+
+
+
+
+
+
+
+
+
+
