@@ -24,6 +24,11 @@ li {
     bottom: 100px;
 }
 
+a {
+    text-decoration: none;
+    color: white;
+}
+
 
 #favorites {
     float: right;
