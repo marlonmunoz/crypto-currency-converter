@@ -216,6 +216,23 @@ favoriteListForm.addEventListener('submit', (event) => {
 
 });
 
+
+function updateCoin(favoriteListItem, valueElement, lastUpdatedElement){
+    fetch('https://api.coincap.io/v2/assets/' + favoriteListItem.coin)
+    .then(response => response.json())
+    .then(cryptoData => {
+        fetch('http://localhost:3002/rates')
+        .then(response => response.json())
+        .then(fxData => {
+            fxRate = fxData[favoriteListItem.currency]
+            console.log(fxRate)
+            cryptoCost = calculateCryptoValueInACurrency(cryptoData.data.priceUsd, fxRate)
+            valueElement.textContent = `Price in ${favoriteListItem.currency}: ${cryptoCost}`
+            lastUpdatedElement.textContent = `Last updated: ${new Date(cryptoData.timestamp).toString()}`
+        })
+    })
+}
+
 function favoriteItemCreator(item, list){
     const favoriteDivContainer = document.createElement('div')
     const favoritedCoinElement = document.createElement('p')
@@ -235,20 +252,30 @@ function favoriteItemCreator(item, list){
     favoriteDivContainer.appendChild(favoritedCurrentValue)
     favoriteDivContainer.appendChild(favoritedLastUpdated)
     favoriteDivContainer.appendChild(updateBtn)
-
-    let sample = fetch('https://api.coincap.io/v2/assets/' + item.coin)
-    .then(response => response.json())
-    .then(cryptoData => {
-        fetch('http://localhost:3002/rates')
+    const myItem = {coin: item.coin, currency: item.currency}
+    updateCoin(myItem, favoritedCurrentValue, favoritedLastUpdated)
+    updateBtn.addEventListener('click', event =>{
+        const nodeId = updateBtn.parentElement.id
+        const thisCurrentValue = document.getElementById(`${nodeId}-currentValue`)
+        const thisLastUpdate = document.getElementById(`${nodeId}-lastUpdate`)
+        fetch('http://localhost:3001/favorites/'+nodeId)
         .then(response => response.json())
-        .then(fxData => {
-            fxRate = fxData[item.currency]
-            console.log(fxRate)
-            cryptoCost = calculateCryptoValueInACurrency(cryptoData.data.priceUsd, fxRate)
-            favoritedCurrentValue.textContent = `Price in ${item.currency}: ${cryptoCost}`
-            favoritedLastUpdated.textContent = `Last updated: ${new Date(cryptoData.timestamp).toString()}`
-        })
-    })
+        .then(data => updateCoin(data, thisCurrentValue, thisLastUpdate ))
+})
+
+    // let sample = fetch('https://api.coincap.io/v2/assets/' + item.coin)
+    // .then(response => response.json())
+    // .then(cryptoData => {
+    //     fetch('http://localhost:3002/rates')
+    //     .then(response => response.json())
+    //     .then(fxData => {
+    //         fxRate = fxData[item.currency]
+    //         console.log(fxRate)
+    //         cryptoCost = calculateCryptoValueInACurrency(cryptoData.data.priceUsd, fxRate)
+    //         favoritedCurrentValue.textContent = `Price in ${item.currency}: ${cryptoCost}`
+    //         favoritedLastUpdated.textContent = `Last updated: ${new Date(cryptoData.timestamp).toString()}`
+    //     })
+    // })
 
     list.appendChild(favoriteDivContainer)
     const removalButton = document.createElement('button')
