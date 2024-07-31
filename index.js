@@ -44,8 +44,15 @@ fetch('https://api.coincap.io/v2/assets')
         cryptoContainer.id = 'myList'
         const cryptoList = document.createElement('li');
         cryptoList.className = 'li-hover'
-        cryptoList.textContent = `${cryptoCoin.name} - (${cryptoCoin.symbol})`
+        cryptoList.style.color = 'white'
+        const link = document.createElement('a');
+        link.href = `${cryptoCoin.explorer}`
+        link.target = '_blank'
+        link.textContent = `${cryptoCoin.name} - (${cryptoCoin.symbol})`
+        // cryptoList.textContent = `${cryptoCoin.name} - (${cryptoCoin.symbol})`
+
         cryptoContainer.appendChild(cryptoList)
+        cryptoList.appendChild(link)
 
         
         
@@ -184,7 +191,9 @@ newLabel.textContent = 'Currency: '
 const submitInput = document.createElement('input')
 submitInput.id = 'submitBtn'
 submitInput.type = 'submit'
-submitInput.value = 'Submit'
+submitInput.value = 'Add To Favorites'
+submitInput.style.backgroundColor = 'grey'
+submitInput.style.color = 'white'
 
 
 submitInput.addEventListener('mouseover', (event) => {
@@ -193,8 +202,8 @@ submitInput.addEventListener('mouseover', (event) => {
 
 });
 submitInput.addEventListener('mouseleave', () => {
-    submitInput.style.backgroundColor = ''
-    submitInput.style.color = 'black'
+    submitInput.style.backgroundColor = 'grey'
+    submitInput.style.color = 'white'
 })
 
 favoriteListForm.addEventListener('submit', (event) => {

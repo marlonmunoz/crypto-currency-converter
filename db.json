@@ -1,3 +1,9 @@
 {
-  "favorites": []
+  "favorites": [
+    {
+      "id": "e783",
+      "coin": "bitcoin",
+      "currency": "USD"
+    }
+  ]
 }
