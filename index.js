@@ -13,13 +13,16 @@ myHeader.appendChild(h3TopFive)
 
 const cryptoSelectionMenu = document.getElementById('crypto')
 
-const currencySelctionMenu = document.getElementById('currency')
+const currencySelectionMenu = document.getElementById('currency')
+
+console.log(cryptoSelectionMenu.selectedOptions.textContent);  
 
 const cryptoSection = document.getElementById('crypto-selection')
 const currencySection = document.getElementById('currency-selection')
 const calculatedSection = document.getElementById('crypto-valuation')
 const calculateButton = document.getElementById('calculateCryptoValue')
 const calculatedValue = document.createElement('p')
+
 const currencyValue = document.createElement('p')
 const cryptoUSDCost = document.createElement('p')
 currencySection.appendChild(currencyValue)
@@ -98,9 +101,9 @@ fetch("http://localhost:3002/rates")
     })
 })
 
-currencySelctionMenu.addEventListener('change', event => {
-    currencyValue.textContent = `Current exchange rate to USD: ${currencySelctionMenu.value}`
-    newInput.value = currencySelctionMenu.selectedOptions[0].text;
+currencySelectionMenu.addEventListener('change', event => {
+    currencyValue.textContent = `Current exchange rate to USD: ${currencySelectionMenu.value}`
+    newInput.value = currencySelectionMenu.selectedOptions[0].text;
     
 })
 
@@ -113,11 +116,12 @@ cryptoSelectionMenu.addEventListener('change', event => {
 })
 
 calculateButton.addEventListener('click', event =>{
-    console.log(currencySelctionMenu.value)
+    console.log(currencySelectionMenu.value)
     console.log(cryptoSelectionMenu.value)
-    let calculatedCryptoValue = Number(currencySelctionMenu.value) * Number(cryptoSelectionMenu.value)
+    let calculatedCryptoValue = Number(currencySelectionMenu.value) * Number(cryptoSelectionMenu.value)
     calculatedValue.textContent = `Calculated value in selected currency is ${calculatedCryptoValue}`
 
+    console.log(calculatedCryptoValue);
 })
 
 
@@ -139,13 +143,13 @@ calculateButton.addEventListener('click', event =>{
 const h3List = document.querySelector('#favorites')
 
 const h3CoinName = document.createElement('h3')
-h3CoinName.textContent = 'Coin Name'
+h3CoinName.textContent = 'Coin Name:'
 
 const h5Currency = document.createElement('h5')
-h5Currency.textContent = 'Currency'
+h5Currency.textContent = 'Currency:'
 
 const h5Price = document.createElement('h5')
-h5Price.textContent = 'Price'
+h5Price.textContent = 'Price:'
 
 const h5Date = document.createElement('h5')
 h5Date.textContent = 'Date'
@@ -178,20 +182,37 @@ newLabel = document.createElement('label')
 newLabel.textContent = 'Currency: '
 
 const submitInput = document.createElement('input')
+submitInput.id = 'submitBtn'
 submitInput.type = 'submit'
 submitInput.value = 'Submit'
 
 
+submitInput.addEventListener('mouseover', (event) => {
+    submitInput.style.backgroundColor = 'firebrick'
+    submitInput.style.color = 'white'
 
+});
+submitInput.addEventListener('mouseleave', () => {
+    submitInput.style.backgroundColor = ''
+    submitInput.style.color = 'black'
+})
 
-let favCurrency;
-let favPrice;
-let favDate;
 
 favoriteListForm.addEventListener('submit', (event) => {
     event.preventDefault();
-    favCurrency = currencySelctionMenu.selectedOptions[0].text;
-    h5Currency.textContent = 'Currency: ' + favCurrency;
+
+    const favCoinName = cryptoSelectionMenu.selectedOptions[0].text;
+    h3CoinName.textContent = favCoinName
+
+    const favCurrency = currencySelectionMenu.selectedOptions[0].text;
+    h5Currency.textContent = favCurrency;
+
+    const favPrice = calculatedValue.textContent;
+    h5Price.textContent =  favPrice;
+
+    const favDate = new Date();
+    favDate.setDate(favDate.getDate());
+    h5Date.textContent = favDate;
 
 });
 
