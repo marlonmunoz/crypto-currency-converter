@@ -15,8 +15,6 @@ const cryptoSelectionMenu = document.getElementById('crypto')
 
 const currencySelectionMenu = document.getElementById('currency')
 
-console.log(cryptoSelectionMenu.selectedOptions.textContent);  
-
 const cryptoSection = document.getElementById('crypto-selection')
 const currencySection = document.getElementById('currency-selection')
 const calculatedSection = document.getElementById('crypto-valuation')
@@ -84,11 +82,9 @@ fetch('https://api.coincap.io/v2/assets')
         selectCrypto.append(optionCryptoCoin);
       
     })
-    console.log(selectCrypto.selectedOptions[0])
     cryptoUSDCost.textContent = cryptoValueText(cryptoSelectionMenu.value)
     inputForm.value = cryptoSelectionMenu.selectedOptions[0].text;
     cryptoData = getCryptoPriceAndTime(selectCrypto.selectedOptions[0].text)
-    console.log(cryptoData)
 })
 
 
@@ -100,7 +96,15 @@ function getCryptoPriceAndTime(cryptoId){
     })
 }
 
+function cryptoValueText(cryptoValue){
+    return `Crypto value in USD is: ${cryptoValue}`
+}
 
+cryptoSelectionMenu.addEventListener('change', event => {
+    cryptoUSDCost.textContent = cryptoValueText(cryptoSelectionMenu.value)
+    inputForm.value = cryptoSelectionMenu.selectedOptions[0].text;
+    
+})
 
 // CURRENCY tab =====================================================
 
@@ -118,7 +122,6 @@ fetch("http://localhost:3002/rates")
     })
     currencyValue.textContent = currencyValueText(currencySelectionMenu.value)
     newInput.value = currencySelectionMenu.selectedOptions[0].text;
-    console.log(`this currency is ${currencyOptionList.selectedOptions[0].text}`)
 })
 
 function currencyValueText(currencyValue){
@@ -131,26 +134,19 @@ currencySelectionMenu.addEventListener('change', event => {
 })
 
 
-function cryptoValueText(cryptoValue){
-    return `Crypto value in USD is: ${cryptoValue}`
+
+function calculateCryptoValueInACurrency(cryptoValue,currencyFxRate){
+    let rawValue = Number(cryptoValue) * Number(currencyFxRate)
+    let calculateCryptoValue = Math.round((rawValue + Number.EPSILON) * 100)/100
+    return new Intl.NumberFormat().format(calculateCryptoValue)
 }
 
-cryptoSelectionMenu.addEventListener('change', event => {
-    cryptoUSDCost.textContent = cryptoValueText(cryptoSelectionMenu.value)
-    inputForm.value = cryptoSelectionMenu.selectedOptions[0].text;
-// **********
-    
-})
 
 calculateButton.addEventListener('click', event =>{
     console.log(currencySelectionMenu.value)
     console.log(cryptoSelectionMenu.value)
-    rawValue = Number(currencySelectionMenu.value) * Number(cryptoSelectionMenu.value)
-    let calculatedCryptoValue = Math.round((rawValue + Number.EPSILON) * 100)/100
-    console.log(currencySelectionMenu.selectedOptions[0].text)
-    calculatedValue.textContent = `Calculated value in selected currency is ${new Intl.NumberFormat().format(calculatedCryptoValue)}`
-
-    console.log(calculatedCryptoValue);
+    let myCryptoValue = calculateCryptoValueInACurrency(cryptoSelectionMenu.value, currencySelectionMenu.value) 
+    calculatedValue.textContent = `Calculated value in selected currency is ${myCryptoValue}`
 })
 
 
@@ -224,6 +220,10 @@ function favoriteItemCreator(item, list){
     const favoriteDivContainer = document.createElement('div')
     const favoritedCoinElement = document.createElement('p')
     const favoritedCurrencyElement = document.createElement('p')
+    const favoritedCurrentValue = document.createElement('p')
+    favoritedCurrentValue.id = `${item.id}-currentValue`
+    const favoritedLastUpdated = document.createElement('p')
+    favoritedLastUpdated.id = `${item.id}-lastUpdate`
     const updateBtn = document.createElement('button')
     updateBtn.textContent = 'Update'
     favoriteDivContainer.className = 'favoriteItem'
@@ -232,7 +232,23 @@ function favoriteItemCreator(item, list){
     favoritedCurrencyElement.textContent = `Currency: ${item.currency}`
     favoriteDivContainer.appendChild(favoritedCoinElement)
     favoriteDivContainer.appendChild(favoritedCurrencyElement)
+    favoriteDivContainer.appendChild(favoritedCurrentValue)
+    favoriteDivContainer.appendChild(favoritedLastUpdated)
     favoriteDivContainer.appendChild(updateBtn)
+
+    let sample = fetch('https://api.coincap.io/v2/assets/' + item.coin)
+    .then(response => response.json())
+    .then(cryptoData => {
+        fetch('http://localhost:3002/rates')
+        .then(response => response.json())
+        .then(fxData => {
+            fxRate = fxData[item.currency]
+            console.log(fxRate)
+            cryptoCost = calculateCryptoValueInACurrency(cryptoData.data.priceUsd, fxRate)
+            favoritedCurrentValue.textContent = `Price in ${item.currency}: ${cryptoCost}`
+            favoritedLastUpdated.textContent = `Last updated: ${new Date(cryptoData.timestamp).toString()}`
+        })
+    })
 
     list.appendChild(favoriteDivContainer)
     const removalButton = document.createElement('button')
@@ -251,7 +267,6 @@ function favoriteItemCreator(item, list){
         })
     })
     favoriteDivContainer.appendChild(removalButton)
-    console.log(favoriteDivContainer)
 }
 
 
