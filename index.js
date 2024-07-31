@@ -100,13 +100,14 @@ fetch("http://localhost:3002/rates")
 
 currencySelctionMenu.addEventListener('change', event => {
     currencyValue.textContent = `Current exchange rate to USD: ${currencySelctionMenu.value}`
-    inputForm.value = currencySelctionMenu.value
+    newInput.value = currencySelctionMenu.selectedOptions[0].text;
     
 })
 
+
 cryptoSelectionMenu.addEventListener('change', event => {
     cryptoUSDCost.textContent = `Crypto value in USD is: ${cryptoSelectionMenu.value}`
-    inputForm.value = cryptoSelectionMenu.value
+    inputForm.value = cryptoSelectionMenu.selectedOptions[0].text;
 // **********
     
 })
@@ -135,7 +136,6 @@ calculateButton.addEventListener('click', event =>{
 
 
 // FAVORITE LIST =====================================================
-
 const h3List = document.querySelector('#favorites')
 
 const h3CoinName = document.createElement('h3')
@@ -181,6 +181,19 @@ const submitInput = document.createElement('input')
 submitInput.type = 'submit'
 submitInput.value = 'Submit'
 
+
+
+
+let favCurrency;
+let favPrice;
+let favDate;
+
+favoriteListForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    favCurrency = currencySelctionMenu.selectedOptions[0].text;
+    h5Currency.textContent = 'Currency: ' + favCurrency;
+
+});
 
 
 const btnForm = document.createElement('button')
