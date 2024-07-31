@@ -32,6 +32,7 @@ calculatedSection.appendChild(calculatedValue)
 const favoriteListContainer = document.getElementById('favorites')
 
 // Your favorite Crypto =====================================================
+// Heading and top 5
 
 fetch('https://api.coincap.io/v2/assets')
 .then(respond => respond.json())
@@ -75,15 +76,31 @@ fetch('https://api.coincap.io/v2/assets')
 .then(res => res.json())
 .then(cryptoData => {
     const allCrypto = cryptoData.data.filter(cryptoCoin => cryptoCoin)
+    const selectCrypto = document.getElementById('crypto')
     allCrypto.forEach(cryptos => {
-        const selectCrypto = document.getElementById('crypto')
         const optionCryptoCoin = document.createElement('option')
         optionCryptoCoin.value = cryptos.priceUsd
-        optionCryptoCoin.textContent = cryptos.name 
+        optionCryptoCoin.textContent = cryptos.id 
         selectCrypto.append(optionCryptoCoin);
       
     })
+    console.log(selectCrypto.selectedOptions[0])
+    cryptoUSDCost.textContent = cryptoValueText(cryptoSelectionMenu.value)
+    inputForm.value = cryptoSelectionMenu.selectedOptions[0].text;
+    cryptoData = getCryptoPriceAndTime(selectCrypto.selectedOptions[0].text)
+    console.log(cryptoData)
 })
+
+
+function getCryptoPriceAndTime(cryptoId){
+    fetch('https://api.coincap.io/v2/assets/' + cryptoId)
+    .then(response => response.json())
+    .then(data =>{
+        return data
+    })
+}
+
+
 
 // CURRENCY tab =====================================================
 
@@ -91,25 +108,35 @@ fetch("http://localhost:3002/rates")
 .then(response => response.json())
 .then(data => {
     worldCurrencyList = Object.keys(data)
+    const currencyOptionList = document.getElementById("currency")
     worldCurrencyList.forEach(worldCurrency => {
-        const currencyOption = document.createElement("option")
-        const currencyOptionList = document.getElementById("currency")
+        const currencyOption = document.createElement("option")     
         currencyOption.value = data[worldCurrency];
         currencyOption.textContent = worldCurrency;
         currencyOptionList.appendChild(currencyOption)
 
     })
+    currencyValue.textContent = currencyValueText(currencySelectionMenu.value)
+    newInput.value = currencySelectionMenu.selectedOptions[0].text;
+    console.log(`this currency is ${currencyOptionList.selectedOptions[0].text}`)
 })
+
+function currencyValueText(currencyValue){
+    return `Current exchange rate to USD: ${currencyValue}`
+}
 
 currencySelectionMenu.addEventListener('change', event => {
-    currencyValue.textContent = `Current exchange rate to USD: ${currencySelectionMenu.value}`
+    currencyValue.textContent = currencyValueText(currencySelectionMenu.value)
     newInput.value = currencySelectionMenu.selectedOptions[0].text;
-    
 })
 
 
+function cryptoValueText(cryptoValue){
+    return `Crypto value in USD is: ${cryptoValue}`
+}
+
 cryptoSelectionMenu.addEventListener('change', event => {
-    cryptoUSDCost.textContent = `Crypto value in USD is: ${cryptoSelectionMenu.value}`
+    cryptoUSDCost.textContent = cryptoValueText(cryptoSelectionMenu.value)
     inputForm.value = cryptoSelectionMenu.selectedOptions[0].text;
 // **********
     
@@ -126,20 +153,6 @@ calculateButton.addEventListener('click', event =>{
     console.log(calculatedCryptoValue);
 })
 
-// console.log(new Intl.NumberFormat('en-US', {style:'currency', currency:'EUR'}).format(63000.99))
-
-// const liList = document.getElementsByClassName('li-hover')
-// console.log(liList);
-// const array = [...liList]
-// console.log(array);
-// array.forEach(ele => {
-// console.log(ele)
-// })
-
-
-
-
-
 
 // FAVORITE LIST =====================================================
 // const h3List = document.querySelector('#favorites')
@@ -155,23 +168,6 @@ h5Price.textContent = 'Price:'
 
 const h5Date = document.createElement('h5')
 h5Date.textContent = 'Date'
-
-// const updateBtn = document.createElement('button')
-// updateBtn.textContent = 'Update'
-// const deleteBtn = document.createElement('button')
-// deleteBtn.textContent = 'Refresh'
-
-
-// h3List.append(h3CoinName)
-// h3List.append(h5Currency)
-// h3List.append(h5Price)
-// h3List.append(h5Date)
-// h3List.append(updateBtn)
-// h3List.append(deleteBtn)
-
-
-
-
 
 
 // Favorites
