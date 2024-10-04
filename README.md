@@ -1,5 +1,7 @@
 # Crypto Project
 
+![C.C.C.](<Crypto Currency Converter.png>)
+
 # Introduction
 
 Welcome to my crypto project.

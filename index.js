@@ -242,6 +242,7 @@ function updateCoin(favoriteListItem, valueElement, lastUpdatedElement){
     })
 }
 
+
 function favoriteItemCreator(item, list){
     const favoriteDivContainer = document.createElement('div')
     const favoritedCoinElement = document.createElement('p')
@@ -333,3 +334,4 @@ labelForm.appendChild(inputForm)
 favoriteListForm.appendChild(newLabel)
 newLabel.appendChild(newInput)
 favoriteListForm.appendChild(submitInput)
+
